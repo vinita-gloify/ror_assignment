@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Library</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Opening_Time</th>
+      <th>Closing_Time</th>
+      <th>No_Of_Books</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @libraries.each do |library| %>
+      <tr>
+        <td><%= library.name %></td>
+        <td><%= library.opening_time %></td>
+        <td><%= library.closing_time %></td>
+        <td><%= library.books.size %></td>
+        <td><%= link_to 'Show', library %></td>
+        <td><%= link_to 'Edit', edit_library_path(library) %></td>
+        <td><%= link_to 'Destroy', library, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>  
+    <% end %>
+  </tbody>
+</table>

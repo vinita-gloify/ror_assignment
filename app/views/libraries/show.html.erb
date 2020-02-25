@@ -1,0 +1,46 @@
+<p id="notice"><%= notice %></p>
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @library.name %>
+</p>
+
+<p>
+  <strong>Opening_Time</strong>
+  <%= @library.opening_time %>
+</p>
+
+<p>
+   <strong>Closing_Time</strong>
+   <%= @library.closing_time %>
+</p>   
+
+<p>
+  <strong>No_Of_Books</strong>
+  <%= @books.size %>
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Author_Name</th>
+      <th>Book_Publication_Date</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @books.each do |book| %>
+      <tr>
+        <td><%= book.title %></td>
+        <td><%= book.user.name %></td>
+        <td><%= book.published_at %></td>
+        #<%= link_to '<button type="button">Unassign</button>'.html_safe, my_stories_path %>
+      </tr>  
+    <% end %>
+  </tbody>
+</table>
+
+<td><%= link_to 'Back', libraries_path, class: "back1" %></td>
