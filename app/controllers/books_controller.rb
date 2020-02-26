@@ -5,7 +5,7 @@ class BooksController < ApplicationController
       
     def new
         @book = Book.new
-        @authors = User.where(role: 1)
+        @authors = User.where(role: :author)
     end 
    
     def create

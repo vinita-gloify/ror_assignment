@@ -1,0 +1,26 @@
+<h1>Edit User</h1>
+<%= form_for @user do |f| %>
+    <p>
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+  
+    </p>
+  
+    <p>
+        <%= f.label :date_of_birth %>
+        <%= f.text_field :date_of_birth %>
+
+    </p>  
+
+    <p>
+        <%= f.label :email %>
+        <%= f.text_field :email %>
+  
+    </p>
+
+     
+    <p>
+        <%= f.submit %>
+    </p>
+  
+<% end %>  
