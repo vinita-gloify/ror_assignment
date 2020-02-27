@@ -1,4 +1,7 @@
 class LibrariesController < ApplicationController
+
+    before_filter :check_if_admin
+
     def index
         @libraries = Library.all
     end
@@ -20,6 +23,7 @@ class LibrariesController < ApplicationController
     def show
        @library = Library.find(params[:id])
        @books = @library.books
+       @unassigned_books = Book.where(library_id: nil)
     end 
       
     def edit
@@ -39,18 +43,39 @@ class LibrariesController < ApplicationController
         @library = Library.find(params[:id])
         @library.destroy
         redirect_to libraries_path
-    end    
-
-    def unassign
-       @book = Book.find(:id)
-       @book.update(library_id: nil)
-       redirect_to 
-    end    
+    end   
+    
+    def assign_book
+        @library = Library.find(params[:id])
+        @book = Book.find(params[:book_id])
+        @book.library_id = @library.id
+        respond_to do |format|
+            if @book.save
+                AssignJobJob.perform_later(@book, @library)
+              format.html { redirect_to @library }
+              format.json { render json: @book, status: :created}
+            else
+              format.html { 
+                flash.now[:notice]="Save proccess coudn't be completed!" 
+                render :show
+              }
+              format.json { render json: @book.errors, status: :unprocessable_entity}
+            end
+          end
+    end
 
     private
    
     def library_params
         params.require(:library).permit(:name, :opening_time, :closing_time)
     end 
+
+    def check_if_admin
+        if signed_in?
+          redirect_to root_path unless current_user.role == 'admin'
+        else
+          redirect_to root_path
+        end
+      end
    
 end

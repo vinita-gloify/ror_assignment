@@ -13,4 +13,11 @@
 <p>
    <strong>Author Email</strong>
    <%= @user.email %>
-</p>   
+</p>  
+
+<p>
+   <strong>Number of Books</strong>
+   <%= @user.books.size %>
+</p>  
+
+<td><%= link_to 'Back', users_path, class: "back1" %></td>

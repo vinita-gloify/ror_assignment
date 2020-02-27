@@ -6,8 +6,9 @@
   <thead>
     <tr>
       <th>Title</th>
-      <th>Published Date</th>
+      <th>Published At</th>
       <th>Language</th>
+      <th>Author</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -18,6 +19,7 @@
         <td><%= book.title %></td>
         <td><%= book.published_at %></td>
         <td><%= book.language %></td>
+        <td><%= book.user.name %></td>
         <td><%= link_to 'Show', book %></td>
         <td><%= link_to 'Edit', edit_book_path(book) %></td>
         <td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -25,3 +27,6 @@
     <% end %>
   </tbody>
 </table>
+
+<td><%= link_to 'Create New', new_book_path %></td> |
+<td><%= link_to 'Back', admin_home_path %></td>
