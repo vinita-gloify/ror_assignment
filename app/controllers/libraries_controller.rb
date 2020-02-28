@@ -51,7 +51,7 @@ class LibrariesController < ApplicationController
         #@book.library_id = @library.id
         respond_to do |format|
             if @book.update(library_id: @library.id)
-              AssignJobJob.set(wait: 1.minutes).perform_later(@book, @library)
+              UserMailer.assign(@book,@library).deliver_later
               format.html { redirect_to @library }
               format.json { render json: @book, status: :created}
             else
