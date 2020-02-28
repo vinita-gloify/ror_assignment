@@ -47,7 +47,8 @@ class BooksController < ApplicationController
     
     def unassign
         @book = Book.find(params[:book_id])
-        @library = Library.find(params[:library_id])
+        #@library = Library.find(params[:library_id])
+        @library = @book.library
         if @book.update(library_id: nil)
            UnassignJobJob.perform_later(@book, @library)
         end

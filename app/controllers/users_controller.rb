@@ -11,7 +11,7 @@ class UsersController < ApplicationController
    
     def create
         @user = User.new(user_params)
-        temp_password = SecureRandom.hex  #SecureRandom is a library
+        temp_password = SecureRandom.hex  #SecureRandom is a library which generate the random hexa decimal 
         @user.password = temp_password
         @user.password_confirmation = temp_password
         if @user.save

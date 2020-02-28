@@ -48,10 +48,10 @@ class LibrariesController < ApplicationController
     def assign_book
         @library = Library.find(params[:id])
         @book = Book.find(params[:book_id])
-        @book.library_id = @library.id
+        #@book.library_id = @library.id
         respond_to do |format|
-            if @book.save
-                AssignJobJob.perform_later(@book, @library)
+            if @book.update(library_id: @library.id)
+              AssignJobJob.set(wait: 1.minutes).perform_later(@book, @library)
               format.html { redirect_to @library }
               format.json { render json: @book, status: :created}
             else
